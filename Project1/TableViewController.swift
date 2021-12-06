@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class TableViewController: UITableViewController {
     private var pictures: [String] = []
 
     override func viewDidLoad() {
@@ -33,11 +33,17 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "picture", for: indexPath)
-        print(indexPath.row)
         cell.textLabel?.text = pictures[indexPath.row]
         return cell
     }
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let imageName = pictures[indexPath.row]
+        let detailViewController = DetailViewController()
+        detailViewController.imageName = imageName
+        detailViewController.imageView.image = UIImage(named: imageName)
+        self.present(detailViewController, animated: true, completion: nil)
+    }
 
 }
 
