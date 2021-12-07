@@ -25,6 +25,7 @@ class TableViewController: UITableViewController {
                 pictures.append(item)
             }
         }
+        pictures = pictures.sorted()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,8 +42,11 @@ class TableViewController: UITableViewController {
         let imageName = pictures[indexPath.row]
         let detailViewController = DetailViewController()
         detailViewController.imageName = imageName
-        detailViewController.imageView.image = UIImage(named: imageName)
-        self.present(detailViewController, animated: true, completion: nil)
+        detailViewController.navigationItem.title = "Picture \(indexPath.row + 1) of \(pictures.count) "
+        
+        // Presents the new viewcontroller as a dismissible Viewcontroler
+//        self.present(detailViewController, animated: true, completion: nil)
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
 
 }

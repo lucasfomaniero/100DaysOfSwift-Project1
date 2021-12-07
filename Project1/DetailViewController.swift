@@ -11,17 +11,20 @@ class DetailViewController: UIViewController {
     
     var imageName: String? {
         didSet {
-            imageTextLabel.text = imageName
+//            imageTextLabel.text = imageName
+            if let imageToLoad = imageName {
+                imageView.image = UIImage(named: imageToLoad)
+            }
         }
     }
     
-    var imageTextLabel: UILabel = {
-        let il = UILabel()
-        il.translatesAutoresizingMaskIntoConstraints = false
-        il.font = .systemFont(ofSize: 16, weight: .semibold)
-        il.contentMode = .center
-        return il
-    }()
+//    var imageTextLabel: UILabel = {
+//        let il = UILabel()
+//        il.translatesAutoresizingMaskIntoConstraints = false
+//        il.font = .systemFont(ofSize: 16, weight: .semibold)
+//        il.contentMode = .center
+//        return il
+//    }()
     
     let imageView: UIImageView = {
         let iv = UIImageView()
@@ -33,12 +36,19 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupConstraints()
+        navigationController?.hidesBarsOnTap = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.hidesBarsOnTap = false
     }
     
     private func setupConstraints() {
         view.addSubview(imageView)
-        view.addSubview(imageTextLabel)
+//        view.addSubview(imageTextLabel)
         
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -47,10 +57,10 @@ class DetailViewController: UIViewController {
             imageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
         
-        NSLayoutConstraint.activate([
-            imageTextLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
-            imageTextLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
+//        NSLayoutConstraint.activate([
+//            imageTextLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
+//            imageTextLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+//        ])
         
     }
 }
